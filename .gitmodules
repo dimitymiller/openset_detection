@@ -1,3 +1,6 @@
 [submodule "mmdetection"]
 	path = mmdetection
 	url = https://github.com/dimitymiller/mmdetection.git
+[submodule "pod_compare"]
+	path = pod_compare
+	url = https://github.com/dimitymiller/pod_compare.git
