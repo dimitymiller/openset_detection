@@ -27,4 +27,6 @@ If you have any questions or comments, please contact [Dimity Miller](mailto:d24
 
 ## Installation
 
-This code was developed with Python 3.6 on Ubuntu 16.04. It requires a GPU. 
+This code was developed with Python 3.7 on Ubuntu 20.04. It requires a GPU. 
+
+
