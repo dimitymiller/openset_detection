@@ -1,10 +1,8 @@
 # Uncertainty for Identifying Open-Set Errors in Visual Object Detection
 
-To do: introduction sentence
+*** Update coming ***
 
-To do: place image here
-
-This repository contains the training and evaluation code from the paper:
+This repository will contain the training and evaluation code from the paper:
 
 **Uncertainty for Identifying Open-Set Errors in Visual Object Detection**
 
