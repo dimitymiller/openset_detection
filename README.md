@@ -2,7 +2,7 @@
 
 <!-- ![GMM-Det](images/GMMDet.png) -->
 <p align="center">
-  <img width="460" height="300" src=images/GMMDet.png>
+  <img width="600" height="281" src=images/GMMDet.png>
 </p>
 
 This repository contains the training and evaluation code from the paper:
