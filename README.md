@@ -1,4 +1,5 @@
 # Uncertainty for Identifying Open-Set Errors in Visual Object Detection
+*** Currently under construction, due date in 2 weeks ***
 This repository contains the training and evaluation code from the paper:
 
 **Uncertainty for Identifying Open-Set Errors in Visual Object Detection**
