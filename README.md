@@ -1,17 +1,16 @@
 # Uncertainty for Identifying Open-Set Errors in Visual Object Detection
-
-<!-- ![GMM-Det](images/GMMDet.png) -->
-<p align="center">
-  <img width="600" height="281" src=images/GMMDet.png>
-</p>
-
 This repository contains the training and evaluation code from the paper:
 
 **Uncertainty for Identifying Open-Set Errors in Visual Object Detection**
 
 *Dimity Miller, Niko Suenderhauf, Michael Milford, Feras Dayoub*
 
-If you use this work, please cite:
+<!-- ![GMM-Det](images/GMMDet.png) -->
+<p align="center">
+  <img width="600" height="281" src=images/GMMDet.png>
+</p>
+
+If you use this repository, please cite:
 
 ```text
 @article{miller2021uncertainty,
