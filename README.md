@@ -52,39 +52,47 @@ pip install -r requirements.txt
 ## Datasets
 Our experiments build off PASCAL VOC, COCO, and the iCubWorld Transformations datasets. These datasets should be available in the `datasets/data/` folder inside this repository. 
 
-### PASCAL VOC and VOC-OS
-Pascal VOC data can be downloaded from [here](http://host.robots.ox.ac.uk/pascal/VOC/). The VOC2007 training/validation data, VOC2007 annotated test data, and VOC2012 training/validation data should be downloaded. The data should be in the following format:
+### Folder structure
+Pascal VOC data can be downloaded from [here](http://host.robots.ox.ac.uk/pascal/VOC/). The VOC2007 training/validation data, VOC2007 annotated test data, and VOC2012 training/validation data should be downloaded. 
+
+COCO data can be downloaded from [here](https://cocodataset.org/#download). The COCO 2017 train images, 2017 val images, and 2017 train/val annotations should be downloaded.
+
+The datasets should be in the following format:
  
  <br>
  
     └── datasets
         └── data
-            ├── ...                        #other datasets
-            └── VOCdevkit
-                 ├── VOC2007               # containing train/val and test data from VOC2007
-                 |    ├── Annotations      # xml annotation for each image
-                 |    ├── ImageSets
-                 |    |   ├── Main         #train, val and test txt files
-                 |    |   └── ... 
-                 |    ├── JPEGImages       # 9,963 images
-                 |    └── ...                 
-                 └── VOC2012               #containing train and val data from VOC2012
-                      ├── Annotations      #xml annotation for each image
-                      ├── ImageSets
-                      |   ├── Main         #train and val txt files
-                      |   └── ... 
-                      ├── JPEGImages       #17,125 images
-                      └── ...     
+            ├── VOCdevkit
+            |    ├── VOC2007               # containing train/val and test data from VOC2007
+            |    |    ├── Annotations      # xml annotation for each image
+            |    |    ├── ImageSets
+            |    |    |   ├── Main         # train, val and test txt files
+            |    |    |   └── ... 
+            |    |    ├── JPEGImages       # 9,963 images
+            |    |    └── ...                 
+            |    └── VOC2012               # containing train and val data from VOC2012
+            |         ├── Annotations      # xml annotation for each image
+            |         ├── ImageSets
+            |         |   ├── Main         # train and val txt files
+            |         |   └── ... 
+            |         ├── JPEGImages       # 17,125 images
+            |         └── ...     
+            └── coco
+                ├── images
+                |   ├── train2017          # 118,287 images
+                |   └── val2017            # 5,019 images
+                ├── annotations
+                |   ├── instances_train2017.json 
+                |   └── instances_val2017.json
+                └── ... 
+                
 
-To create the open-set variant of PASCAL VOC, VOC-OS, run the following command:
+### Creating open-set datasets
+To create the open-set variant of each dataset, VOC-OS and COCO-OS, run the following commands:
+
 ```bash
 python datasets/create_osdata.py --dataset voc
-```
-
-### COCO and COCO-OS
-
-To create the open-set variant of COCO, COCO-OS, run the following command:
-```bash
 python datasets/create_osdata.py --dataset coco
 ```
 
