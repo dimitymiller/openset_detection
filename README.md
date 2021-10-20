@@ -50,8 +50,27 @@ pip install -r requirements.txt
 ```
 
 ## Datasets
+Our experiments build off PASCAL VOC, COCO, and the iCubWorld Transformations datasets. These datasets should be available in the `datasets/data/` folder inside this repository. 
 
-These datasets should be available in the `datasets/data/` folder inside this repository. 
+### PASCAL VOC and VOC-OS
+Pascal VOC data can be downloaded from [here](http://host.robots.ox.ac.uk/pascal/VOC/). The VOC2007 training/validation data, VOC2007 annotated test data, and VOC2012 training/validation data should be downloaded. The data should be in the following format:
+ .
+    └── datasets
+        └── data              
+            └── VOCdevkit
+                 ├── VOC2007
+                 |    ├── Annotations
+                 |    ├── ImageSets
+                 |    ├── JPEGImages
+                 |    └── ...                 
+                 └── VOC2012
+                      ├── Annotations
+                      ├── ImageSets
+                      ├── JPEGImages
+                      └── ...     
+    
+
+### Setting up VOC-OS and COCO-OS
 
 
 
