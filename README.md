@@ -58,27 +58,35 @@ Pascal VOC data can be downloaded from [here](http://host.robots.ox.ac.uk/pascal
  <br>
  
     └── datasets
-        └── data              
-            ├── VOCdevkit
-            |    ├── VOC2007               # containing train/val and test data from VOC2007
-            |    |    ├── Annotations      # xml annotation for each image
-            |    |    ├── ImageSets
-            |    |    |   ├── Main         #train, val and test txt files
-            |    |    |   └── ... 
-            |    |    ├── JPEGImages       # 9,963 images
-            |    |    └── ...                 
-            |    └── VOC2012               #containing train and val data from VOC2012
-            |         ├── Annotations      #xml annotation for each image
-            |         ├── ImageSets
-            |         |   ├── Main         #train and val txt files
-            |         |   └── ... 
-            |         ├── JPEGImages       #17,125 images
-            |         └── ...     
-            └── ...
+        └── data
+            ├── ...                        #other datasets
+            └── VOCdevkit
+                 ├── VOC2007               # containing train/val and test data from VOC2007
+                 |    ├── Annotations      # xml annotation for each image
+                 |    ├── ImageSets
+                 |    |   ├── Main         #train, val and test txt files
+                 |    |   └── ... 
+                 |    ├── JPEGImages       # 9,963 images
+                 |    └── ...                 
+                 └── VOC2012               #containing train and val data from VOC2012
+                      ├── Annotations      #xml annotation for each image
+                      ├── ImageSets
+                      |   ├── Main         #train and val txt files
+                      |   └── ... 
+                      ├── JPEGImages       #17,125 images
+                      └── ...     
 
-### Setting up VOC-OS and COCO-OS
+To create the open-set variant of PASCAL VOC, VOC-OS, run the following command:
+```bash
+python datasets/create_osdata.py --dataset voc
+```
 
+### COCO and COCO-OS
 
+To create the open-set variant of COCO, COCO-OS, run the following command:
+```bash
+python datasets/create_osdata.py --dataset coco
+```
 
 ## Pre-trained Models
 
