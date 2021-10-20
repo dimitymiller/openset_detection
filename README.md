@@ -60,15 +60,19 @@ Pascal VOC data can be downloaded from [here](http://host.robots.ox.ac.uk/pascal
     └── datasets
         └── data              
             ├── VOCdevkit
-            |    ├── VOC2007
-            |    |    ├── Annotations
+            |    ├── VOC2007               # containing train/val and test data from VOC2007
+            |    |    ├── Annotations      # xml annotation for each image
             |    |    ├── ImageSets
-            |    |    ├── JPEGImages
+            |    |    |   ├── Main         #train, val and test txt files
+            |    |    |   └── ... 
+            |    |    ├── JPEGImages       # 9,963 images
             |    |    └── ...                 
-            |    └── VOC2012
-            |         ├── Annotations
+            |    └── VOC2012               #containing train and val data from VOC2012
+            |         ├── Annotations      #xml annotation for each image
             |         ├── ImageSets
-            |         ├── JPEGImages
+            |         |   ├── Main         #train and val txt files
+            |         |   └── ... 
+            |         ├── JPEGImages       #17,125 images
             |         └── ...     
             └── ...
 
