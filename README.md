@@ -25,4 +25,36 @@ If you have any questions or comments, please contact [Dimity Miller](mailto:d24
 
 ## Installation
 
-This code was developed with Python 3.6 on Ubuntu 16.04. It requires a GPU. 
+This code was developed with Python 3.7 on Ubuntu 20.04. It requires a GPU. 
+ 
+### Installing via conda environment (recommended)
+We have included the os_det.yml file for the conda environment we used during this project. To create your own conda environment you can run:
+
+```bash
+conda env create -f os_det.yml
+```
+
+You should then activate this environment before running any of the code:
+
+```bash
+conda activate os_det
+```
+
+### Otherwise (without using a conda environment)
+Python requirements can be installed by:
+
+```bash
+pip install -r requirements.txt
+```
+
+## Datasets
+
+These datasets should be available in the `datasets/data/` folder inside this repository. 
+
+
+
+## Pre-trained Models
+
+## Evaluation
+
+## Training 
