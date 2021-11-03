@@ -18,8 +18,10 @@ If you use this repository, please cite:
 @article{miller2021uncertainty,
   title={Uncertainty for Identifying Open-Set Errors in Visual Object Detection},
   author={Miller, Dimity and S{\"u}nderhauf, Niko and Milford, Michael and Dayoub, Feras},
-  journal={arXiv preprint arXiv:2104.01328},
-  year={2021}
+  journal={IEEE Robotics and Automation Letters}, 
+  year={2021},
+  pages={1-1},
+  doi={10.1109/LRA.2021.3123374}
 }
 ```
 
