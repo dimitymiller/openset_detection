@@ -94,8 +94,9 @@ The datasets should be in the following format:
 To create the open-set variant of each dataset, VOC-OS and COCO-OS, run the following commands:
 
 ```bash
-python datasets/create_osdata.py --dataset voc
-python datasets/create_osdata.py --dataset coco
+cd datasets
+python create_osdata.py --dataset voc
+python create_osdata.py --dataset coco
 ```
 
 ## Pre-trained Models
