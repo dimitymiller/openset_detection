@@ -101,6 +101,8 @@ python create_osdata.py --dataset voc
 python create_osdata.py --dataset coco
 ```
 
+This script will create 'closed-set' forms of VOC and COCO (i.e. VOC-CS and COCO-CS), and the original VOC and COCO will then be open-set datasets (i.e. VOC-OS and COCO-OS). For VOC, this is done by creating a new VOC2007CS and VOC2012CS folder with only closed-set images and closed-set annotations. For COCO, a new trainCS2017 and valCS2017 folder will be created, as well as new annotation files instances_trainCS2017.json and instances_valCS2017.json.                
+
 ## Pre-trained Models
 
 ## Evaluation
