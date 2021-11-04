@@ -29,6 +29,13 @@ If you use this repository, please cite:
 
 If you have any questions or comments, please contact [Dimity Miller](mailto:d24.miller@qut.edu.au).
 
+**Progress**
+- [] Dataset setup (ETA: 1 day)
+- [] Faster R-CNN Evaluations (ETA: 1 day)
+- [] Faster R-CNN GMM-Det Training (ETA: 5 days)
+- [] RetinaNet Evaluations (ETA: 1 week)
+- [] RetinaNet GMM-Det Training (ETA: 1-2 weeks)
+
 ## Installation
 
 This code was developed with Python 3.7 on Ubuntu 20.04. It requires a GPU. 
