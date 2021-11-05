@@ -3,3 +3,4 @@ datasets/data
 .ipynb_checkpoints
 *.json
 mmdetection/test.sh
+mmdetection/workDirs
