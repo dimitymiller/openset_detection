@@ -43,30 +43,30 @@ data = dict(
         dataset=dict(
             type=dataset_type,
             ann_file=[
-                data_root + 'VOC2007Split/ImageSets/Main/trainval.txt',
-                data_root + 'VOC2012Split/ImageSets/Main/train.txt'
+                data_root + 'VOC2007CS/ImageSets/Main/trainval.txt',
+                data_root + 'VOC2012CS/ImageSets/Main/train.txt'
             ],
-            img_prefix=[data_root + 'VOC2007Split/', data_root + 'VOC2012Split/'],
+            img_prefix=[data_root + 'VOC2007CS/', data_root + 'VOC2012CS/'],
             pipeline=train_pipeline)),
     trainCS12=dict(
         type=dataset_type,
-        ann_file=data_root + 'VOC2012Split/ImageSets/Main/train.txt',
-        img_prefix=data_root + 'VOC2012Split/',
+        ann_file=data_root + 'VOC2012CS/ImageSets/Main/train.txt',
+        img_prefix=data_root + 'VOC2012CS/',
         pipeline=test_pipeline),
     trainCS07=dict(
         type=dataset_type,
-        ann_file=data_root + 'VOC2007Split/ImageSets/Main/trainval.txt',
-        img_prefix=data_root + 'VOC2007Split/',
+        ann_file=data_root + 'VOC2007CS/ImageSets/Main/trainval.txt',
+        img_prefix=data_root + 'VOC2007CS/',
         pipeline=test_pipeline),
     valCS=dict(
         type=dataset_type,
-        ann_file=data_root + 'VOC2012Split/ImageSets/Main/val.txt',
-        img_prefix=data_root + 'VOC2012Split/',
+        ann_file=data_root + 'VOC2012CS/ImageSets/Main/val.txt',
+        img_prefix=data_root + 'VOC2012CS/',
         pipeline=test_pipeline),
     testCS=dict(
         type=dataset_type,
-        ann_file=data_root + 'VOC2007Split/ImageSets/Main/test.txt',
-        img_prefix=data_root + 'VOC2007Split/',
+        ann_file=data_root + 'VOC2007CS/ImageSets/Main/test.txt',
+        img_prefix=data_root + 'VOC2007CS/',
         pipeline=test_pipeline),
     testOS=dict(
         type=dataset_type,

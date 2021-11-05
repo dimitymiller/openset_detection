@@ -162,10 +162,17 @@ if args.dataset == 'voc':
             readFile = open(source_file, 'r')
             writeFile = open(destination_file, 'w')
 
+
+
+
             for x in readFile:
                 xFormat = 'JPEGImages/'+x.replace('\n', '')+'.jpg'
-                if xFormat in filesIncluded[dName]:
-                    writeFile.write(x)
+                if yr == '2007':
+                    if xFormat in filesIncluded['2007Train'] or xFormat in filesIncluded['2007Test']:
+                        writeFile.write(x)
+                else:
+                    if xFormat in filesIncluded['2012Train']:
+                        writeFile.write(x)
                     
             writeFile.close()
 
