@@ -125,5 +125,33 @@ The weights.zip file should be extracted into the mmdetection/ folder. Each pre-
             ├── frcnn_CE_Coco4           # used for COCO ensemble baseline
             └── frcnn_CACCE_Coco_A005    # used for GMM-Det, trained with CE and Anchor loss (with Anchor weight 0.05)
 ## Evaluation
+In order to evaluate the data, you can use 2 bash scripts which rely on 3 python files that (1) test the data, (2) associate the detections with the GT instances in the dataset, and (3) calculate the results and print to terminal.
+
+You can use the test_standard.sh and test_ensemble.sh bash scripts as follows:
+```bash
+cd mmdetection
+./test_standard.sh {weights_folder} {save_name} {dataset}
+```
+where:
+* `weights_folder` is the name of the weights folder inside mmdetection/weights, e.g. frcnn_CE_Voc0  
+* `save_name` is the name of what all results should be saved as, e.g. frcnn_CE_Voc0
+* `dataset` is the dataset to test, must be 'voc' or 'coco'
+
+To get the results presented in the paper, run:
+```bash
+cd mmdetection
+
+echo Cross-entropy baseline
+./test_standard.sh  frcnn_CE_Voc0 frcnn_CE_Voc voc
+./test_standard.sh  frcnn_CE_Coco0 frcnn_CE_Coco coco
+
+echo Ensemble baseline
+./test_ensemble.sh  frcnn_CE_Voc frcnn_CE_Voc voc
+./test_ensemble.sh  frcnn_CE_Coco frcnn_CE_Coco coco
+
+echo GMM-Det 
+./test_standard.sh  frcnn_CACCE_Voc_A01 frcnn_GMMDet_Voc voc
+./test_standard.sh  frcnn_CACCE_Coco_A005 frcnn_GMMDet_Coco coco
+```
 
 ## Training 
