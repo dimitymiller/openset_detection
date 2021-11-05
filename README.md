@@ -47,10 +47,11 @@ We have included the os_mmdet.yml file for the conda environment we used during 
 conda env create -f os_mmdet.yml
 ```
 
-You should then activate this environment before running any of the code:
+You should then activate this environment and install pytorch:
 
 ```bash
 conda activate os_mmdet
+conda install pytorch torchvision torchaudio cudatoolkit=11.3 -c pytorch
 ```
 
 ## Datasets
