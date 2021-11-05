@@ -154,4 +154,13 @@ echo GMM-Det
 ./test_standard.sh  frcnn_CACCE_Coco_A005 frcnn_GMMDet_Coco coco
 ```
 
+If you get an error 'bash: ./test_standard.sh: Permission denied' or 'bash: ./test_ensemble.sh: Permission denied', you may need to run:
+```bash
+chmod +x test_standard.sh
+chmod +x test_ensemble.sh
+```
+
+**Note:** There may be very slight discrepancies between the results you obtain and the results presented in the paper. This is due to using the updated mmdetection repository and sklearn packages. However, this should be only be very minor - raise an issue in this repo if there's a significant difference.
+
+
 ## Training 
