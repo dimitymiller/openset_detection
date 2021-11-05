@@ -47,11 +47,13 @@ We have included the os_mmdet.yml file for the conda environment we used during 
 conda env create -f os_mmdet.yml
 ```
 
-You should then activate this environment and install pytorch:
+You should then activate this environment and install pytorch and mmcv:
 
 ```bash
 conda activate os_mmdet
-conda install pytorch torchvision torchaudio cudatoolkit=11.3 -c pytorch
+pip install torch==1.9.0+cu111 torchvision==0.10.0+cu111 torchaudio==0.9.0 -f https://download.pytorch.org/whl/torch_stable.html
+pip install mmcv-full==1.3.9 -f https://download.openmmlab.com/mmcv/dist/cu111/torch1.9.0/index.html
+
 ```
 
 ## Datasets
