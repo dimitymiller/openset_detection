@@ -1,4 +1,4 @@
-datasets/data/*
+datasets/data
 *.pyc
 .ipynb_checkpoints
 *.json
