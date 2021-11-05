@@ -37,7 +37,7 @@ If you have any questions or comments, please contact [Dimity Miller](mailto:d24
 - [ ] RetinaNet GMM-Det Training (ETA: 1-2 weeks)
 
 ## Acknowledgement
-The code in this repository builds upon and heavily relies on the [open-mmlab/mmdetection](https://github.com/open-mmlab/mmdetection) github repository.
+The code in the mmdetection folder of this repository is a copy of the [open-mmlab/mmdetection](https://github.com/open-mmlab/mmdetection) github repository (with some minor additions and changes). Please acknowledge mmdetection if you use this respository.
 
 ## Installation
 
