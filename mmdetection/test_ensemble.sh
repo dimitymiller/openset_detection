@@ -33,3 +33,5 @@ fi
 python merge_ensemble.py --subset val --saveNm "${2}" --dataset $3
 python merge_ensemble.py --subset test --saveNm "${2}" --dataset $3
 
+python associate_data.py FRCNN --saveNm "${2}"Ensemble08 --dataset $3
+python get_results.py FRCNN --saveNm "${2}"Ensemble08 --dataset $3 --saveResults True
