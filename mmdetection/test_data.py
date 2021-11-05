@@ -16,45 +16,34 @@ from mmdet.datasets import (build_dataloader, build_dataset,
 from mmdet.models import build_detector
 
 import numpy as np
+import tqdm
 import json
+import sys
 
-CLASSESVOC = ('aeroplane', 'bicycle', 'bird', 'boat', 'bottle', 'bus', 'car',
-               'cat', 'chair', 'cow', 'diningtable', 'dog', 'horse',
-               'motorbike', 'person', 'pottedplant', 'sheep', 'sofa', 'train',
-               'tvmonitor')
-CLASSESCOCO = ('person', 'bicycle', 'car', 'motorcycle', 'airplane', 'bus',
-               'train', 'truck', 'boat', 'traffic light', 'fire hydrant',
-               'stop sign', 'parking meter', 'bench', 'bird', 'cat', 'dog',
-               'horse', 'sheep', 'cow', 'elephant', 'bear', 'zebra', 'giraffe',
-               'backpack', 'umbrella', 'handbag', 'tie', 'suitcase', 'frisbee',
-               'skis', 'snowboard', 'sports ball', 'kite', 'baseball bat',
-               'baseball glove', 'skateboard', 'surfboard', 'tennis racket',
-               'bottle', 'wine glass', 'cup', 'fork', 'knife', 'spoon', 'bowl',
-               'banana', 'apple', 'sandwich', 'orange', 'broccoli', 'carrot',
-               'hot dog', 'pizza', 'donut', 'cake', 'chair', 'couch',
-               'potted plant', 'bed', 'dining table', 'toilet', 'tv', 'laptop',
-               'mouse', 'remote', 'keyboard', 'cell phone', 'microwave',
-               'oven', 'toaster', 'sink', 'refrigerator', 'book', 'clock',
-               'vase', 'scissors', 'teddy bear', 'hair drier', 'toothbrush')
+currentdir = os.path.dirname(os.path.realpath(__file__))
+parentdir = os.path.dirname(currentdir)
+sys.path.append(parentdir)
 
+from base_dirs import *
 
 def parse_args():
-    parser = argparse.ArgumentParser(description='Test with Distance')
+    parser = argparse.ArgumentParser(description='Test the data and save the raw detections')
     parser.add_argument('--dataset', default = 'voc', help='voc or coco')
     parser.add_argument('--subset', default = None, help='train or val or test')
-    parser.add_argument('--dir', default = None, help='directory of model weights')
-    parser.add_argument('--checkpoint', default = 'latest.pth', help='what is the name of the model weights')
+    parser.add_argument('--dir', default = None, help='directory of object detector weights')
+    parser.add_argument('--checkpoint', default = 'latest.pth', help='what is the name of the object detector weights')
     parser.add_argument('--saveNm', default = None, help='name to save results as')
     args = parser.parse_args()
     return args
 
 args = parse_args()
 
+
 #load the config file for the model that will also return logits
 if args.dataset == 'voc':
-    args.config = 'configs/faster_rcnn/faster_rcnn_r50_fpn_1x_voc0712SplitLogits.py'
+    args.config = 'configs/faster_rcnn/faster_rcnn_r50_fpn_1x_voc0712OS_wLogits.py'
 else:
-    args.config = 'configs/faster_rcnn/faster_rcnn_r50_fpn_1x_cocoSplitLogits.py'
+    args.config = 'configs/faster_rcnn/faster_rcnn_r50_fpn_1x_cocoOS_wLogits.py'
     
 ###################################################################################################
 ##############Setup Config file ###################################################################
@@ -79,51 +68,52 @@ if cfg.model.get('neck'):
             cfg.model.neck.rfp_backbone.pretrained = None
 
 # in case the test dataset is concatenated
-if isinstance(cfg.data.test, dict):
-    cfg.data.test.test_mode = True
-elif isinstance(cfg.data.test, list):
-    for ds_cfg in cfg.data.test:
+if isinstance(cfg.data.testOS, dict):
+    cfg.data.testOS.test_mode = True
+elif isinstance(cfg.data.testOS, list):
+    for ds_cfg in cfg.data.testOS:
         ds_cfg.test_mode = True
 
 distributed = False
 
-samples_per_gpu = cfg.data.test.pop('samples_per_gpu', 1)
+samples_per_gpu = cfg.data.testOS.pop('samples_per_gpu', 1)
 if samples_per_gpu > 1:
     # Replace 'ImageToTensor' to 'DefaultFormatBundle'
-    cfg.data.test.pipeline = replace_ImageToTensor(cfg.data.test.pipeline)
-
-
+    cfg.data.testOS.pipeline = replace_ImageToTensor(cfg.data.testOS.pipeline)
 
 ###################################################################################################
 ###############Load Dataset########################################################################
-
-
-if args.dataset == 'voc':
-    if args.subset == 'train12':
-        dataset = build_dataset(cfg.data.trainDist1)
-    elif args.subset == 'train07':
-        dataset = build_dataset(cfg.data.trainDist2)
-    elif args.subset == 'val':
-        dataset = build_dataset(cfg.data.valOS)
-    elif args.subset == 'ood':
-        dataset = build_dataset(cfg.data.ood)
-    elif args.subset == 'test':
-        dataset = build_dataset(cfg.data.testOS)
-else:
-    if args.subset == 'train':
-        dataset = build_dataset(cfg.data.distTrain)
-    elif args.subset == 'val':
-        dataset = build_dataset(cfg.data.distVal)
-    elif args.subset == 'test':
-        dataset = build_dataset(cfg.data.distTest)
-
+print("Building datasets")
 if args.dataset == 'voc':
     num_classes = 15
+    if args.subset == 'train12':
+        dataset = build_dataset(cfg.data.trainCS12)
+    elif args.subset == 'train07':
+        dataset = build_dataset(cfg.data.trainCS07)
+    elif args.subset == 'val':
+        dataset = build_dataset(cfg.data.valCS)
+    elif args.subset == 'test':
+        dataset = build_dataset(cfg.data.testOS)
+    else:
+        print('That subset is not implemented.')
+        exit()
 else:
+    if args.subset == 'train':
+        dataset = build_dataset(cfg.data.trainCS)
+    elif args.subset == 'val':
+        dataset = build_dataset(cfg.data.valCS)
+    elif args.subset == 'test':
+        dataset = build_dataset(cfg.data.testOS)
+    else:
+        print('That subset is not implemented.')
+        exit()
+
     if args.dataset == 'coco':
         num_classes = 50
     else:
+        #for the full version of coco used to fit GMMs in the iCUB experiments
         num_classes = 80
+
 
 data_loader = build_dataloader(
     dataset,
@@ -133,14 +123,17 @@ data_loader = build_dataloader(
     shuffle=False)
 
 
+###################################################################################################
+###############Build model ########################################################################
+print("Building model")
+
 # build the model and load checkpoint
 model = build_detector(cfg.model, train_cfg=None, test_cfg=cfg.test_cfg)
 method_list = [func for func in dir(model) if callable(getattr(model, func))]
-print(method_list)
 fp16_cfg = cfg.get('fp16', None)
 if fp16_cfg is not None:
     wrap_fp16_model(model)
-checkpoint = load_checkpoint(model, 'workDirs/{}/{}'.format(args.dir, args.checkpoint), map_location='cpu')
+checkpoint = load_checkpoint(model, '{}/{}/{}'.format(BASE_WEIGHTS_FOLDER, args.dir, args.checkpoint), map_location='cpu')
 
 if 'CLASSES' in checkpoint['meta']:
     model.CLASSES = checkpoint['meta']['CLASSES']
@@ -150,21 +143,19 @@ else:
 model = MMDataParallel(model, device_ids=[0])
 model.eval()
 
-########################################################################################################
-########################## COLLECT DATA  ###############################################################
-########################################################################################################
 
+########################################################################################################
+########################## TESTING DATA  ###############################################################
+########################################################################################################
+print(f"Testing {args.subset} data")
 num_images = len(data_loader.dataset)
 
-score_threshold = 0.1
-print(num_images)
+score_threshold = 0.2 # only detections with a max softmax above this score are considered valid
 total = 0
 allResults = {}
-for i, data in enumerate(data_loader):
-    if i%500 == 0:
-        print('Progress: ', 100.*total/num_images)
-    
+for i, data in enumerate(tqdm.tqdm(data_loader, total = num_images)):   
     imName = data_loader.dataset.data_infos[i]['filename']
+    
     allResults[imName] = []
 
     total += 1
@@ -173,9 +164,11 @@ for i, data in enumerate(data_loader):
     
     with torch.no_grad():
         result = model(return_loss = False, rescale=True, **data)[0]
-
+    
+    #collect results from each class and concatenate into a list of all the results
     for j in range(np.shape(result)[0]):
         dets = result[j]
+
         if len(dets) == 0:
             continue
 
@@ -184,11 +177,13 @@ for i, data in enumerate(data_loader):
         scores = dets[:, 4]
         scoresT = np.expand_dims(scores, axis=1)
 
+        #winning class must be class j for this detection to be considered valid
         mask = np.argmax(dists, axis = 1)==j
 
         if np.sum(mask) == 0:
             continue
 
+        #check thresholds are above the score cutoff
         imDets = np.concatenate((dists, bboxes, scoresT), 1)[mask]
         scores = scores[mask]
         mask2 = scores >= score_threshold
@@ -203,21 +198,23 @@ for i, data in enumerate(data_loader):
         else:
             all_detections = np.concatenate((all_detections, imDets))
 
-    
-    imName = data_loader.dataset.data_infos[i]['filename']
-
     if all_detections is None:
         continue
     else:
-        #remove double ups
+        #remove doubled-up detections -- this shouldn't really happen
         detections, idxes = np.unique(all_detections, return_index = True, axis = 0)
-   
-    
+
     allResults[imName] = detections.tolist()
-   
-#save faster rcnn results
+
+#save results
 jsonRes = json.dumps(allResults)
-f = open('results/{}/{}/{}/{}.json'.format('FRCNN', args.dataset, args.data, args.saveNm), 'w')
+
+save_dir = f'{BASE_RESULTS_FOLDER}/FRCNN/raw/{args.dataset}/{args.subset}'
+#check folders exist, if not, create it
+if not os.path.exists(save_dir):
+    os.makedirs(save_dir)
+
+f = open('{}/{}.json'.format(save_dir, args.saveNm), 'w')
 f.write(jsonRes)
 f.close()
 

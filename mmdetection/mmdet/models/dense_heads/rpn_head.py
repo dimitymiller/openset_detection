@@ -108,6 +108,7 @@ class RPNHead(RPNTestMixin, AnchorHead):
                 (n,) tensor where each item is the predicted class label of the
                 corresponding box.
         """
+        
         cfg = self.test_cfg if cfg is None else cfg
         cfg = copy.deepcopy(cfg)
         # bboxes from different level should be independent during NMS,

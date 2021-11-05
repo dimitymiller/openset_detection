@@ -43,8 +43,7 @@ model = dict(
             in_channels=256,
             fc_out_channels=1024,
             roi_feat_size=7,
-            return_logits = True,
-            num_classes=50,
+            num_classes=15,
             bbox_coder=dict(
                 type='DeltaXYWHBBoxCoder',
                 target_means=[0., 0., 0., 0.],
@@ -54,7 +53,7 @@ model = dict(
                 type='CrossEntropyLoss', use_sigmoid=False, loss_weight=1.0),
             loss_bbox=dict(type='L1Loss', loss_weight=1.0))))
 # model training and testing settings
-train_cfg = dict(
+train_cfg=dict(
     rpn=dict(
         assigner=dict(
             type='MaxIoUAssigner',
@@ -73,11 +72,9 @@ train_cfg = dict(
         pos_weight=-1,
         debug=False),
     rpn_proposal=dict(
-        nms_across_levels=False,
         nms_pre=2000,
-        nms_post=1000,
-        max_num=1000,
-        nms_thr=0.7,
+        max_per_img=1000,
+        nms=dict(type='nms', iou_threshold=0.7),
         min_bbox_size=0),
     rcnn=dict(
         assigner=dict(
@@ -94,20 +91,18 @@ train_cfg = dict(
             neg_pos_ub=-1,
             add_gt_as_proposals=True),
         pos_weight=-1,
-        debug=False))
-test_cfg = dict(
-    rpn=dict(
-        nms_across_levels=False,
-        nms_pre=1000,
-        nms_post=1000,
-        max_num=1000,
-        nms_thr=0.7,
-        min_bbox_size=0),
-    rcnn=dict(
-        score_thr=0.05,
-        return_logits = True,
-        nms=dict(type='nms', iou_threshold=0.5),
-        max_per_img=100)
-    # soft-nms is also supported for rcnn testing
-    # e.g., nms=dict(type='soft_nms', iou_threshold=0.5, min_score=0.05)
-)
+        debug=False)),
+test_cfg=dict(
+        rpn=dict(
+            nms_pre=1000,
+            max_per_img=1000,
+            nms=dict(type='nms', iou_threshold=0.7),
+            min_bbox_size=0),
+        rcnn=dict(
+            score_thr=0.05,
+            nms=dict(type='nms', iou_threshold=0.5),
+            max_per_img=100,
+            return_logits=True)
+        # soft-nms is also supported for rcnn testing
+        # e.g., nms=dict(type='soft_nms', iou_threshold=0.5, min_score=0.05)
+    )

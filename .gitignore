@@ -1,2 +1,5 @@
-datasets/data
+datasets/data/*
 *.pyc
+.ipynb_checkpoints
+*.json
+mmdetection/test.sh

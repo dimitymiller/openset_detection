@@ -83,7 +83,7 @@ class DeltaXYWHBBoxCoder(BaseBBoxCoder):
         Returns:
             torch.Tensor: Decoded boxes.
         """
-
+        
         assert pred_bboxes.size(0) == bboxes.size(0)
         if pred_bboxes.ndim == 3:
             assert pred_bboxes.size(1) == bboxes.size(1)

@@ -10,7 +10,7 @@ def multiclass_nms(multi_bboxes,
                    nms_cfg,
                    max_num=-1,
                    score_factors=None,
-                   return_inds=False):
+                   return_inds=False, return_logits = False, multi_logits = None):
     """NMS for multi-class bboxes.
 
     Args:
@@ -31,6 +31,7 @@ def multiclass_nms(multi_bboxes,
         tuple: (bboxes, labels, indices (optional)), tensors of shape (k, 5),
             (k), and (k). Labels are 0-based.
     """
+    
     num_classes = multi_scores.size(1) - 1
     # exclude background category
     if multi_bboxes.shape[1] > 4:
@@ -38,6 +39,7 @@ def multiclass_nms(multi_bboxes,
     else:
         bboxes = multi_bboxes[:, None].expand(
             multi_scores.size(0), num_classes, 4)
+
 
     scores = multi_scores[:, :-1]
 
@@ -47,11 +49,13 @@ def multiclass_nms(multi_bboxes,
     bboxes = bboxes.reshape(-1, 4)
     scores = scores.reshape(-1)
     labels = labels.reshape(-1)
-
+    
+    
     if not torch.onnx.is_in_onnx_export():
         # NonZero not supported  in TensorRT
         # remove low scoring boxes
         valid_mask = scores > score_thr
+       
     # multiply score_factor after threshold to preserve more bboxes, improve
     # mAP by 1% for YOLOv3
     if score_factors is not None:
@@ -60,10 +64,12 @@ def multiclass_nms(multi_bboxes,
             multi_scores.size(0), num_classes)
         score_factors = score_factors.reshape(-1)
         scores = scores * score_factors
+        
 
     if not torch.onnx.is_in_onnx_export():
         # NonZero not supported  in TensorRT
         inds = valid_mask.nonzero(as_tuple=False).squeeze(1)
+        
         bboxes, scores, labels = bboxes[inds], scores[inds], labels[inds]
     else:
         # TensorRT NMS plugin has invalid output filled with -1
@@ -71,6 +77,14 @@ def multiclass_nms(multi_bboxes,
         bboxes = torch.cat([bboxes, bboxes.new_zeros(1, 4)], dim=0)
         scores = torch.cat([scores, scores.new_zeros(1)], dim=0)
         labels = torch.cat([labels, labels.new_zeros(1)], dim=0)
+        
+
+    if return_logits:
+        multi_logits = multi_logits.squeeze(0)
+        new_multiLogits = torch.repeat_interleave(multi_logits, repeats = multi_logits.size(1)-1, dim = 0)
+        
+        logits = new_multiLogits[inds]
+       
 
     if bboxes.numel() == 0:
         if torch.onnx.is_in_onnx_export():
@@ -86,6 +100,12 @@ def multiclass_nms(multi_bboxes,
     if max_num > 0:
         dets = dets[:max_num]
         keep = keep[:max_num]
+
+    if return_logits:
+        logits = logits[keep]
+        logits = logits[:max_num]
+        dets = torch.cat((dets, logits), 1)
+        
 
     if return_inds:
         return dets, labels[keep], keep

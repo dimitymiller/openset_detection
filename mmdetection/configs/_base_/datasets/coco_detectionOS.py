@@ -1,5 +1,7 @@
+from base_dirs import BASE_DATA_FOLDER
+
 dataset_type = 'CocoDataset'
-data_root = 'data/coco/'
+data_root = BASE_DATA_FOLDER+'/coco/'
 img_norm_cfg = dict(
     mean=[123.675, 116.28, 103.53], std=[58.395, 57.12, 57.375], to_rgb=True)
 train_pipeline = [
@@ -27,20 +29,7 @@ test_pipeline = [
             dict(type='Collect', keys=['img']),
         ])
 ]
-distTest_pipeline = [
-    dict(type='LoadImageFromFile'),
-    dict(
-        type='MultiScaleFlipAug',
-        img_scale=(1333, 800),
-        flip=False,
-        transforms=[
-            dict(type='Resize', keep_ratio=True),
-            dict(type='Normalize', **img_norm_cfg),
-            dict(type='Pad', size_divisor=32),
-            dict(type='ImageToTensor', keys=['img']),
-            dict(type='Collect', keys=['img']),
-        ])
-]
+
 data = dict(
     samples_per_gpu=4,
     workers_per_gpu=2,
@@ -49,7 +38,7 @@ data = dict(
         ann_file=data_root + 'annotations/instances_train2017SplitTrain.json',
         img_prefix=data_root + 'images/train2017SplitTrain/',
         pipeline=train_pipeline),
-    distTrain=dict(
+    trainCS=dict(
         type=dataset_type,
         ann_file=data_root + 'annotations/instances_train2017SplitTrain.json',
         img_prefix=data_root + 'images/train2017SplitTrain/',
@@ -59,25 +48,20 @@ data = dict(
         ann_file=data_root + 'annotations/instances_val2017Split.json',
         img_prefix=data_root + 'images/val2017Split/',
         pipeline=test_pipeline),
-    distVal=dict(
+    valCS=dict(
         type=dataset_type,
         ann_file=data_root + 'annotations/instances_train2017SplitVal.json',
         img_prefix=data_root + 'images/train2017SplitVal/',
         pipeline=test_pipeline),
-    distTest = dict(
-        type=dataset_type,
-        ann_file=data_root + 'annotations/instances_val2017.json',
-        img_prefix=data_root + 'val2017/',
-        pipeline=test_pipeline),
     testOS = dict(
         type=dataset_type,
-        ann_file=data_root + 'annotations/instances_val2017SplitOS.json',
-        img_prefix=data_root + 'val2017/',
+        ann_file=data_root + 'annotations/instances_val2017.json',
+        img_prefix=data_root + 'images/val2017/',
         pipeline=test_pipeline),
-    mapTest=dict(
+    testOSmAP = dict(
         type=dataset_type,
         ann_file=data_root + 'annotations/instances_val2017SplitOS.json',
-        img_prefix=data_root + 'val2017/',
+        img_prefix=data_root + 'images/val2017/',
         pipeline=test_pipeline),
     testCS=dict(
         type=dataset_type,
@@ -87,6 +71,6 @@ data = dict(
     test=dict(
         type=dataset_type,
         ann_file=data_root + 'annotations/instances_val2017.json',
-        img_prefix=data_root + 'val2017/',
+        img_prefix=data_root + 'images/val2017/',
         pipeline=test_pipeline))
 evaluation = dict(interval=1, metric='bbox')
