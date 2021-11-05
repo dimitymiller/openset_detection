@@ -4,3 +4,5 @@ datasets/data
 *.json
 mmdetection/test.sh
 mmdetection/workDirs
+mmdetection/weights
+*.zip
