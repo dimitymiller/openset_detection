@@ -36,9 +36,6 @@ If you have any questions or comments, please contact [Dimity Miller](mailto:d24
 - [ ] RetinaNet Evaluations (ETA: 1 week)
 - [ ] RetinaNet GMM-Det Training (ETA: 1-2 weeks)
 
-## Acknowledgement
-The code in the mmdetection folder of this repository is a copy of the [open-mmlab/mmdetection](https://github.com/open-mmlab/mmdetection) github repository (with some minor additions and changes). Please acknowledge mmdetection if you use this respository.
-
 ## Installation
 
 This code was developed with Python 3.7 on Ubuntu 20.04. It requires a GPU. 
@@ -167,3 +164,6 @@ chmod +x test_ensemble.sh
 
 
 ## Training 
+
+## Acknowledgement
+The code in the mmdetection folder of this repository is a copy of the [open-mmlab/mmdetection](https://github.com/open-mmlab/mmdetection) github repository (with some minor additions and changes). Please acknowledge mmdetection if you use this respository.
