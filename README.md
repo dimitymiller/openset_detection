@@ -41,27 +41,20 @@ If you have any questions or comments, please contact [Dimity Miller](mailto:d24
 This code was developed with Python 3.7 on Ubuntu 20.04. It requires a GPU. 
  
 ### Installing via conda environment (recommended)
-We have included the os_det.yml file for the conda environment we used during this project. To create your own conda environment you can run:
+We have included the os_mmdet.yml file for the conda environment we used during this project. To create your own conda environment you can run:
 
 ```bash
-conda env create -f os_det.yml
+conda env create -f os_mmdet.yml
 ```
 
 You should then activate this environment before running any of the code:
 
 ```bash
-conda activate os_det
-```
-
-### Otherwise (without using a conda environment)
-Python requirements can be installed by:
-
-```bash
-pip install -r requirements.txt
+conda activate os_mmdet
 ```
 
 ## Datasets
-Our experiments build off PASCAL VOC, COCO, and the iCubWorld Transformations datasets. These datasets should be available in the `datasets/data/` folder inside this repository. 
+Our experiments build off PASCAL VOC and COCO datasets. These datasets should be available in the `datasets/data/` folder inside this repository. 
 
 ### Folder structure
 Pascal VOC data can be downloaded from [here](http://host.robots.ox.ac.uk/pascal/VOC/). The VOC2007 training/validation data, VOC2007 annotated test data, and VOC2012 training/validation data should be downloaded. 
@@ -111,7 +104,26 @@ python create_osdata.py --dataset coco
 This script will create 'closed-set' forms of VOC and COCO (i.e. VOC-CS and COCO-CS), and the original VOC and COCO will then be open-set datasets (i.e. VOC-OS and COCO-OS). For VOC, this is done by creating a new VOC2007CS and VOC2012CS folder with only closed-set images and closed-set annotations. For COCO, a new trainCS2017 and valCS2017 folder will be created, as well as new annotation files instances_trainCS2017.json and instances_valCS2017.json.                
 
 ## Pre-trained Models
+You can download the Faster R-CNN pre-trained model weights at the following link:
 
+The weights.zip file should be extracted into the mmdetection/ folder. Each pre-trained model folder contains a python script with the config used during training and a weights file 'latest.pth'.
+
+<br>
+ 
+    └── mmdetection
+        └── weights
+            ├── frcnn_CE_Voc0            # used for VOC standard baseline and ensemble baseline
+            ├── frcnn_CE_Voc1            # used for VOC ensemble baseline
+            ├── frcnn_CE_Voc2            # used for VOC ensemble baseline
+            ├── frcnn_CE_Voc3            # used for VOC ensemble baseline
+            ├── frcnn_CE_Voc4            # used for VOC ensemble baseline
+            ├── frcnn_CACCE_Voc_A01      # used for GMM-Det, trained with CE and Anchor loss (with Anchor weight 0.1)
+            ├── frcnn_CE_Coco0           # used for COCO standard baseline and ensemble baseline
+            ├── frcnn_CE_Coco1           # used for COCO ensemble baseline
+            ├── frcnn_CE_Coco2           # used for COCO ensemble baseline
+            ├── frcnn_CE_Coco3           # used for COCO ensemble baseline
+            ├── frcnn_CE_Coco4           # used for COCO ensemble baseline
+            └── frcnn_CACCE_Coco_A005    # used for GMM-Det, trained with CE and Anchor loss (with Anchor weight 0.05)
 ## Evaluation
 
 ## Training 
