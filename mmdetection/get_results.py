@@ -116,7 +116,7 @@ for unc in uncTypes:
 				print('Finding optimal component number for the GMM')
 				for nComp in tqdm.tqdm(nComps, total = len(nComps)):
 					gmms = fit_gmms(trainLogits, trainLabels, trainIoUs, trainScores, args.scoreThresh, args.iouThresh, num_classes, components = nComp)
-
+			
 					gmmScores = gmm_uncertainty(valLogits, gmms)
 					valTP = gmmScores[valTypes == 0]
 					valFP = gmmScores[valTypes == 1]
