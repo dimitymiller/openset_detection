@@ -14,7 +14,8 @@ from mmcv.utils import get_git_hash
 import sys
 currentdir = os.path.dirname(os.path.realpath(__file__))
 parentdir = os.path.dirname(currentdir)
-sys.path.append(parentdir)
+parentdir2 = os.path.dirname(parentdir)
+sys.path.append(parentdir2)
 
 
 from mmdet import __version__
@@ -172,6 +173,8 @@ def main():
         val_dataset = copy.deepcopy(cfg.data.val)
         val_dataset.pipeline = cfg.data.train.pipeline
         datasets.append(build_dataset(val_dataset))
+
+    
     if cfg.checkpoint_config is not None:
         # save mmdet version, config file content and class names in
         # checkpoints as meta data

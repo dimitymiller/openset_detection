@@ -43,6 +43,9 @@ class CocoDataset(CustomDataset):
         Returns:
             list[dict]: Annotation info from COCO api.
         """
+        if 'CS' in ann_file:
+            self.CLASSES = self.CLASSES[:50]
+
 
         self.coco = COCO(ann_file)
         # The order of returned `cat_ids` will not

@@ -24,6 +24,9 @@ class VOCDataset(XMLDataset):
         else:
             raise ValueError('Cannot infer dataset year from img_prefix')
 
+        if 'CS' in self.img_prefix:
+            self.CLASSES = self.CLASSES[:15]
+
     def evaluate(self,
                  results,
                  metric='mAP',
