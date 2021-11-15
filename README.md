@@ -30,9 +30,9 @@ If you use this repository, please cite:
 If you have any questions or comments, please contact [Dimity Miller](mailto:d24.miller@qut.edu.au).
 
 **Progress**
-- [x] Dataset setup (ETA: 1 day)
-- [x] Faster R-CNN Evaluations (ETA: 1 day)
-- [ ] Faster R-CNN GMM-Det Training (ETA: 5 days)
+- [x] Dataset setup 
+- [x] Faster R-CNN Evaluations 
+- [x] Faster R-CNN GMM-Det Training 
 - [ ] RetinaNet Evaluations (ETA: 1 week)
 - [ ] RetinaNet GMM-Det Training (ETA: 1-2 weeks)
 
@@ -167,6 +167,22 @@ chmod +x test_ensemble.sh
 
 
 ## Training 
+To train a model with the proposed cross-entropy and anchor loss, the following configs can be used with the mmdet tools/train.py directory:
+
+_For VOC-CS:_ configs/pascal_voc/faster_rcnn_r50_fpn_1x_voc0712OS_Anchor.py
+_For COCO-CS:_ configs/faster_rcnn/faster_rcnn_r50_fpn_1x_cocoOS_Anchor.py
+
+An example of how to use these with the tools/train.py file and 1 gpu during training: 
+
+```bash
+echo Training Faster RCNN on closed-set VOC
+python tools/train.py configs/pascal_voc/faster_rcnn_r50_fpn_1x_voc0712OS_Anchor.py --gpus 1 --work-dir 'weights/frcnnCEwAnchorVocCS'
+
+echo Training Faster RCNN on closed-set COCO
+python tools/train.py configs/faster_rcnn/faster_rcnn_r50_fpn_1x_cocoOS_Anchor.py --gpus 1 --work-dir 'weights/frcnnCEwAnchorCocoCS'
+
+```
+The ''work-dir'' folder is where the weights will be saved.
 
 ## Acknowledgement
 The code in the mmdetection folder of this repository is a copy of the [open-mmlab/mmdetection](https://github.com/open-mmlab/mmdetection) github repository (with some minor additions and changes). Please acknowledge mmdetection if you use this respository.
