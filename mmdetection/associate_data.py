@@ -369,7 +369,7 @@ for typIdx, nm in enumerate(['val', 'test']):
 	if nm == 'val':
 		if not bool(args.val):
 			continue
-		testDataset = build_dataset(cfg.data.valCS)
+		testDataset = build_dataset(cfg.data.val)
 	else:
 		if not bool(args.test):
 			continue

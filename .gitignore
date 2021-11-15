@@ -3,6 +3,7 @@ datasets/data
 .ipynb_checkpoints
 *.json
 mmdetection/test.sh
+mmdetection/train.sh
 mmdetection/workDirs
 mmdetection/weights
 *.zip

@@ -100,19 +100,20 @@ class AnchorwCrossEntropyLoss(nn.Module):
         self.num_classes = num_classes
         self.anchor_weight = anchor_weight
 
-        anch = torch.diag(torch.ones(num_classes)*5)
+        #plus one to account for background class
+        anch = torch.diag(torch.ones(num_classes+1)*5)
         anch = torch.where(anch != 0, anch, torch.Tensor([-5]))
         self.anchors = nn.Parameter(anch, requires_grad = False).cuda()
-
         
         self.cls_criterion = anchor_cross_entropy
 
     def euclideanDistance(self, logits):
-
-        logits = logits.view(-1, self.num_classes)
+        #plus one to account for background clss logit
+        logits = logits.view(-1, self.num_classes+1)
         n = logits.size(0)
         m = self.anchors.size(0)
         d = logits.size(1)
+
         x = logits.unsqueeze(1).expand(n, m, d)
         anchors = self.anchors.unsqueeze(0).expand(n, m, d)
 
@@ -152,7 +153,9 @@ class AnchorwCrossEntropyLoss(nn.Module):
             class_weight = None
 
        
-        distances = self.euclideanDistance(cls_score[:, :-1])
+        distances = self.euclideanDistance(cls_score)
+
+        # distances = self.euclideanDistance(cls_score[:, :-1])
 
         loss_cls = self.loss_weight * self.cls_criterion(
             distances,

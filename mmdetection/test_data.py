@@ -91,7 +91,7 @@ if args.dataset == 'voc':
     elif args.subset == 'train07':
         dataset = build_dataset(cfg.data.trainCS07)
     elif args.subset == 'val':
-        dataset = build_dataset(cfg.data.valCS)
+        dataset = build_dataset(cfg.data.val)
     elif args.subset == 'test':
         dataset = build_dataset(cfg.data.testOS)
     else:
@@ -101,7 +101,7 @@ else:
     if args.subset == 'train':
         dataset = build_dataset(cfg.data.trainCS)
     elif args.subset == 'val':
-        dataset = build_dataset(cfg.data.valCS)
+        dataset = build_dataset(cfg.data.val)
     elif args.subset == 'test':
         dataset = build_dataset(cfg.data.testOS)
     else:
