@@ -170,11 +170,14 @@ chmod +x test_ensemble.sh
 To train a model with the proposed cross-entropy and anchor loss, the following configs can be used with the mmdet tools/train.py directory:
 
 _For VOC-CS:_ configs/pascal_voc/faster_rcnn_r50_fpn_1x_voc0712OS_Anchor.py
+
 _For COCO-CS:_ configs/faster_rcnn/faster_rcnn_r50_fpn_1x_cocoOS_Anchor.py
 
 An example of how to use these with the tools/train.py file and 1 gpu during training: 
 
 ```bash
+cd mmdetection
+
 echo Training Faster RCNN on closed-set VOC
 python tools/train.py configs/pascal_voc/faster_rcnn_r50_fpn_1x_voc0712OS_Anchor.py --gpus 1 --work-dir 'weights/frcnnCEwAnchorVocCS'
 
