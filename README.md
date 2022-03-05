@@ -1,5 +1,4 @@
 # Uncertainty for Identifying Open-Set Errors in Visual Object Detection
-*** Currently under construction, due date in 2 weeks ***
 
 This repository contains the training and evaluation code from the paper:
 
@@ -28,13 +27,6 @@ If you use this repository, please cite:
 **Contact**
 
 If you have any questions or comments, please contact [Dimity Miller](mailto:d24.miller@qut.edu.au).
-
-**Progress**
-- [x] Dataset setup 
-- [x] Faster R-CNN Evaluations 
-- [x] Faster R-CNN GMM-Det Training 
-- [ ] RetinaNet Evaluations (ETA: 1 week)
-- [ ] RetinaNet GMM-Det Training (ETA: 1-2 weeks)
 
 ## Installation
 
