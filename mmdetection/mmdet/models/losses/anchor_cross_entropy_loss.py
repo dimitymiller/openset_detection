@@ -45,6 +45,7 @@ def anchor_cross_entropy(distances, logits,
 
     #don't apply to background classes
     mask = label != num_classes
+    
     if torch.sum(mask) != 0:
         label = label[mask]
         distances = distances[mask]

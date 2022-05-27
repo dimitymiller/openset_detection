@@ -140,7 +140,7 @@ for unc in uncTypes:
 	else:
 		print('That uncertainty measure has not been implemented. Check the args.unc input argument.')
 		exit()
-	
+
 	scoreResults = summarise_performance(tpKnown, fpUnknown, fprRates, True, args.saveNm + f' with uncertainty {unc}')
 	allResults[unc] = scoreResults
 
