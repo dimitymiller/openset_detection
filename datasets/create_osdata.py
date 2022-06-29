@@ -297,7 +297,7 @@ elif args.dataset == 'coco':
 
     print('Moving images to new closed-set folder')
     source_folders = [BASE_DATA_FOLDER+'/coco/images/train2017/', BASE_DATA_FOLDER+'/coco/images/train2017/', BASE_DATA_FOLDER+'/coco/images/val2017/']
-    destination_folders = [fBASE_DATA_FOLDER+'/coco/images/{split}CS2017/' for split in ['train', 'val', 'test']]
+    destination_folders = [BASE_DATA_FOLDER+'/coco/images/{split}CS2017/' for split in ['train', 'val', 'test']]
 
     #check destination folder exists, else create
     for folder in destination_folders:
