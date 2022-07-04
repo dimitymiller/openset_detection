@@ -99,7 +99,7 @@ python create_osdata.py --dataset coco
 This script will create 'closed-set' forms of VOC and COCO (i.e. VOC-CS and COCO-CS), and the original VOC and COCO will then be open-set datasets (i.e. VOC-OS and COCO-OS). For VOC, this is done by creating a new VOC2007CS and VOC2012CS folder with only closed-set images and closed-set annotations. For COCO, a new trainCS2017 and valCS2017 folder will be created, as well as new annotation files instances_trainCS2017.json and instances_valCS2017.json.                
 
 ## Pre-trained Models
-You can download the Faster R-CNN pre-trained model weights at the following link: https://www.dropbox.com/s/7bbx8hyqup7b515/weights.zip?dl=0
+You can download the Faster R-CNN pre-trained model weights at the following link: https://drive.google.com/file/d/1VOWfI8RGWhv_P-djDEUQAaBwX-8wwLGh/view?usp=sharing
 
 The weights.zip file should be extracted into the mmdetection/ folder. Each pre-trained model folder contains a python script with the config used during training and a weights file 'latest.pth'.
 
